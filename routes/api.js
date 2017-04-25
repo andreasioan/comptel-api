@@ -1,0 +1,123 @@
+var express = require('express');
+var router = express.Router();
+
+var Fallout = require('../models/fallout');
+var Resolution = require('../models/resolution');
+var Detail = require('../models/detail');
+
+// Date queries dont work as dates are not stored
+// as dates in the db, they are strings, hence 
+// cant treat them as dates without an extreme 
+// performance hit
+
+
+// Get Dashboard
+router.get('/dashboard', function (req, res, next) {
+
+    var query = Fallout.find();
+
+    Fallout.paginate(query, {
+        page: 1,
+        limit: 10,
+        sort: 'creation_timestamp'
+    }, function (err, fallouts) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        return res.status(200).json(fallouts);
+    });
+});
+
+// Get fallouts
+router.get('/fallouts', function (req, res, next) {
+    var query = Fallout.find();
+
+    // Where Creation Date
+    if(req.query.createdatefrom && req.query.createdateto) {
+        let fromDate = new Date(req.query.createdatefrom);
+        let toDate = new Date(req.query.createdateto);
+        query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+    }
+
+    //Where Due Date
+    if(req.query.duedatefrom && req.query.duedateto) {
+        let fromDate = new Date(req.query.duedatefrom);
+        let toDate = new Date(req.query.duedateto);
+        query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+    }
+    
+    // Search
+    if(req.query.search && req.query.in) {
+		query.where(req.query.in).equals(req.query.search);
+	}
+
+    Fallout.paginate(query, {
+        page: req.query.page ? Number(req.query.page) : 1,
+        limit: req.query.rows ? Number(req.query.rows) : 25,
+        sort: req.query.sort ? req.query.sort : '-id'
+    }, function (err, fallouts) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        return res.status(200).json(fallouts);
+    });
+});
+
+// Get resolutions
+router.get('/resolutions', function (req, res, next) {
+    var query = Resolution.find();
+
+    // Where Creation Date
+    if(req.query.createdatefrom && req.query.createdateto) {
+        let fromDate = new Date(req.query.createdatefrom);
+        let toDate = new Date(req.query.createdateto);
+        query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+    }
+
+    //Where Due Date
+    if(req.query.duedatefrom && req.query.duedateto) {
+        let fromDate = new Date(req.query.duedatefrom);
+        let toDate = new Date(req.query.duedateto);
+        query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+    }
+    
+    // Search
+    if(req.query.search && req.query.in) {
+		query.where(req.query.in).equals(req.query.search);
+	}
+
+    Resolution.paginate(query, {
+        page: req.query.page ? Number(req.query.page) : 1,
+        limit: req.query.rows ? Number(req.query.rows) : 25,
+        sort: req.query.sort ? req.query.sort : '-id'
+    }, function (err, resolutions) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        return res.status(200).json(resolutions);
+    });
+});
+
+// Get details
+router.get('/details', function (req, res, next) {
+    Detail.find(function (err, details) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        return res.status(200).json(details);
+    });
+});
+
+module.exports = router;
