@@ -13,22 +13,32 @@ var Detail = require('../models/detail');
 
 // Get Dashboard
 router.get('/dashboard', function (req, res, next) {
+    let falloutQuery = Fallout.find().limit(5);
+     
+       
+    let resolutionQUery = Resolution.find().limit(5);
+        
+       
 
-    var query = Fallout.find();
+    let promises = {
+        fallouts: Fallout.find().limit(5),
+        resolutions: Resolution.find().limit(5),
+        total_fallouts: Fallout.count(),
+        total_resolutions: Resolution.count()
+    };
 
-    Fallout.paginate(query, {
-        page: 1,
-        limit: 10,
-        sort: 'creation_timestamp'
-    }, function (err, fallouts) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occured',
-                error: err
-            });
-        }
-        return res.status(200).json(fallouts);
+    promises = Object.keys(promises).map((x) => promises[x]);
+    return Promise.all(promises).then((data) => {
+        let result = {
+            fallouts: data[0],
+            resolutions: data[1],
+            total_fallouts: data[2],
+            total_resolutions: data[3]
+        };
+
+        return res.status(200).json(result);
     });
+
 });
 
 // Get fallouts
@@ -36,23 +46,23 @@ router.get('/fallouts', function (req, res, next) {
     var query = Fallout.find();
 
     // Where Creation Date
-    if(req.query.createdatefrom && req.query.createdateto) {
+    if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
         query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
     }
 
     //Where Due Date
-    if(req.query.duedatefrom && req.query.duedateto) {
+    if (req.query.duedatefrom && req.query.duedateto) {
         let fromDate = new Date(req.query.duedatefrom);
         let toDate = new Date(req.query.duedateto);
         query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
     }
-    
+
     // Search
-    if(req.query.search && req.query.in) {
-		query.where(req.query.in).equals(req.query.search);
-	}
+    if (req.query.search && req.query.in) {
+        query.where(req.query.in).equals(req.query.search);
+    }
 
     Fallout.paginate(query, {
         page: req.query.page ? Number(req.query.page) : 1,
@@ -74,23 +84,23 @@ router.get('/resolutions', function (req, res, next) {
     var query = Resolution.find();
 
     // Where Creation Date
-    if(req.query.createdatefrom && req.query.createdateto) {
+    if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
         query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
     }
 
     //Where Due Date
-    if(req.query.duedatefrom && req.query.duedateto) {
+    if (req.query.duedatefrom && req.query.duedateto) {
         let fromDate = new Date(req.query.duedatefrom);
         let toDate = new Date(req.query.duedateto);
         query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
     }
-    
+
     // Search
-    if(req.query.search && req.query.in) {
-		query.where(req.query.in).equals(req.query.search);
-	}
+    if (req.query.search && req.query.in) {
+        query.where(req.query.in).equals(req.query.search);
+    }
 
     Resolution.paginate(query, {
         page: req.query.page ? Number(req.query.page) : 1,
