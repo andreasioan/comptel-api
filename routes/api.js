@@ -48,14 +48,14 @@ router.get('/fallouts', function (req, res, next) {
     if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
-        query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+        query.where().gte(moment(fromDate).startOf('day').toISOString()).lte(moment(toDate).endOf('day').toISOString());
     }
 
     //Where Due Date
     if (req.query.duedatefrom && req.query.duedateto) {
         let fromDate = new Date(req.query.duedatefrom);
         let toDate = new Date(req.query.duedateto);
-        query.where().gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+        query.where().gte(moment(fromDate).startOf('day').toISOString()).lte(moment(toDate).endOf('day').toISOString());
     }
 
     // Search

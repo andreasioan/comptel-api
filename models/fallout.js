@@ -8,8 +8,8 @@ var schema = new Schema({
     source: {type: String},
     source_fallou_id: {type: String},
     error_code: {type: String},
-    creation_timestamp: {type: String},
-    due_date: {type: String},
+    creation_timestamp: {type: Date},
+    due_date: {type: Date},
     status: {type: String}
 });
 
