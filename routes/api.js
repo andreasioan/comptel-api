@@ -111,18 +111,22 @@ router.get('/resolutions', function (req, res, next) {
 
     // Search
     if (req.query.search && req.query.in) {
-        if(req.query.in === 'creation_timestamp') {
-            query.where('creation_date').equals(req.query.search);
-        } else { // nasty workaround for resolution creation date
-            query.where(req.query.in).equals(req.query.search);
-        }
-        
+        query.where(req.query.in).equals(req.query.search);
     }
+
+
 
     Resolution.paginate(query, {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.rows ? Number(req.query.rows) : 25,
-        sort: req.query.sort ? req.query.sort : '-id'
+        sort: function() {
+            if(req.query.sort === 'creation_timestamp') {
+                return 'creation_date'
+            } else { // nasty workaround for resolution creation date
+                return req.query.sort ? req.query.sort : '-id'
+            }
+            
+        }
     }, function (err, resolutions) {
         if (err) {
             return res.status(500).json({
