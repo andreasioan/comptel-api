@@ -21,10 +21,10 @@ router.get('/dashboard', function (req, res, next) {
        
 
     let promises = {
-        fallouts: Fallout.find().limit(5),
-        resolutions: Resolution.find().limit(5),
-        total_fallouts: Fallout.count(),
-        total_resolutions: Resolution.count()
+        fallouts: Fallout.find().limit(5).exec(),
+        resolutions: Resolution.find().limit(5).exec(),
+        total_fallouts: Fallout.count().exec(),
+        total_resolutions: Resolution.count().exec()
     };
 
     promises = Object.keys(promises).map((x) => promises[x]);
