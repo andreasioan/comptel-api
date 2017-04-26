@@ -27,7 +27,7 @@ router.get('/dashboard', function (req, res, next) {
         total_resolutions: Resolution.count()
     };
 
-    promises = Object.keys(promises).map((x) => promises[x]);
+    // promises = Object.keys(promises).map((x) => promises[x]);
     return Promise.all(promises).then((data) => {
         let result = {
             fallouts: data[0],
