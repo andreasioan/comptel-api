@@ -30,10 +30,7 @@ router.get('/dashboard', function (req, res, next) {
     promises = Object.keys(promises).map((x) => promises[x]);
     return Promise.all(promises).then((data) => {
         let result = {
-            fallouts: data[0],
-            resolutions: data[1],
-            total_fallouts: data[2],
-            total_resolutions: data[3]
+            fallouts: data
         };
 
         return res.status(200).json(result);
