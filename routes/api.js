@@ -114,19 +114,10 @@ router.get('/resolutions', function (req, res, next) {
         query.where(req.query.in).equals(req.query.search);
     }
 
-
-
     Resolution.paginate(query, {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.rows ? Number(req.query.rows) : 25,
-        sort: function() {
-            if(req.query.sort === 'creation_timestamp') {
-                return 'creation_date'
-            } else { // nasty workaround for resolution creation date
-                return req.query.sort ? req.query.sort : '-id'
-            }
-            
-        }
+        sort: req.query.sort ? req.query.sort : '-id'
     }, function (err, resolutions) {
         if (err) {
             return res.status(500).json({
