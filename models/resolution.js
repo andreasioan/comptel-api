@@ -8,7 +8,7 @@ var schema = new Schema({
     source_fallout_id: {type: String},
     action_id: {type: String},
     target_system: {type: String},
-    creation_date: {type: String},
+    creation_timestamp: {type: String},
     due_date: {type: String},
     status: {type: String},
     retry_count: {type: String}

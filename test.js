@@ -26,11 +26,11 @@ mongoose.connect('comptel:swinburne@ds117899.mlab.com:17899/comptel-afom');
 
 var resolutions = Resolution.find(function (err, result) {
     for (var i = 0; i < result.length; i++) {
-        let momDate = moment(result[i].creation_date + " +000", "DD-MM-YY HH:mm Z");
+        let momDate = moment(result[i].creation_timestamp + " +000", "DD-MM-YY HH:mm Z");
         let momDueDate = moment(result[i].due_date + " +000", "DD-MM-YY HH:mm Z");
 
-        console.log(result[i].creation_date = new Date(momDate).toISOString());
-        console.log(result[i].due_date = new Date(momDueDate).toISOString());
+        result[i].creation_timestamp = new Date(momDate).toISOString();
+        result[i].due_date = new Date(momDueDate).toISOString();
         result[i].save(function(err, save) {
             if (err) {
                 console.log(err);
