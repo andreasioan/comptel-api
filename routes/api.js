@@ -49,7 +49,7 @@ router.get('/fallouts', function (req, res, next) {
     if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
-        console.log(query.where('creation_timestamp').gte(moment(fromDate).startOf('day').toISOString()));
+        query.where('creation_timestamp').gte(moment(fromDate).startOf('day').toISOString()).lte(moment(toDate).endOf('day').toISOString());
     }
 
     //Where Due Date
