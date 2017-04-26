@@ -111,7 +111,12 @@ router.get('/resolutions', function (req, res, next) {
 
     // Search
     if (req.query.search && req.query.in) {
-        query.where(req.query.in).equals(req.query.search);
+        if(req.query.in === 'creation_timestamp') {
+            query.where('creation_date').equals(req.query.search);
+        } else { // nasty workaround for resolution creation date
+            query.where(req.query.in).equals(req.query.search);
+        }
+        
     }
 
     Resolution.paginate(query, {
