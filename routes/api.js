@@ -14,18 +14,28 @@ var Detail = require('../models/detail');
 
 // Get Dashboard
 router.get('/dashboard', function (req, res, next) {
-    let falloutQuery = Fallout.find().limit(5);
-     
-       
-    let resolutionQUery = Resolution.find().limit(5);
-        
-       
+
+    let falloutsTodayQuery = Fallout.count().where('creation_timestamp').gte(moment(new Date('2017-03-22')).startOf('day').toISOString()).lte(moment(new Date()).endOf('day').toISOString());
+    let resolutionsTodayQuery = Resolution.count().where('creation_timestamp').gte(moment(new Date('2017-03-22')).startOf('day').toISOString()).lte(moment(new Date()).endOf('day').toISOString())
+    let falloutDataMonth0 = Fallout.count().where('creation_timestamp')
 
     let promises = {
         fallouts: Fallout.find().limit(5),
         resolutions: Resolution.find().limit(5),
         total_fallouts: Fallout.count(),
-        total_resolutions: Resolution.count()
+        total_resolutions: Resolution.count(),
+        fallouts_today: falloutsTodayQuery,
+        resolutions_today: resolutionsTodayQuery,
+        // bar_chart_data: {
+        //     fallouts_data: {
+        //         month0: ,
+        //         month1: ,
+        //         month2: ,
+        //         month3: ,
+        //         month4: ,
+        //         month5: 
+        //     }
+        // }
     };
 
     promises = Object.keys(promises).map((x) => promises[x]);
@@ -34,7 +44,9 @@ router.get('/dashboard', function (req, res, next) {
             fallouts: data[0],
             resolutions: data[1],
             total_fallouts: data[2],
-            total_resolutions: data[3]
+            total_resolutions: data[3],
+            fallouts_today: data[4],
+            resolutions_today: data[5]
         };
 
         return res.status(200).json(result);
