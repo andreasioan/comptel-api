@@ -127,7 +127,7 @@ router.get('/resolutions', function (req, res, next) {
 // Get details
 router.get('/details/:fallout_id', function (req, res, next) {
     Detail.find()
-        .where('fallout_id').equals(req.param.fallout_id)
+        .where('fallout_id').equals(req.params.fallout_id)
         .exec(function (err, details) {
             if (err) {
                 return res.status(500).json({
