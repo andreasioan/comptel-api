@@ -1,33 +1,45 @@
-<h1>Comptel AFOM API</h1>
+<!DOCTYPE html>
+<html>
 
-<h2>Routes</h2>
-<ul>
-    <li>https://comptel-api.herokuapp.com/api/resolutions</li>
-    <li>https://comptel-api.herokuapp.com/api/fallouts</li>
-</ul>
-<hr>
-<h2>Accepted query params:</h2>
-<h3>Pagination</h3>
-<ul>
-    <li>page - sets the page of results | default is 1</li>
-    <li>rows - sets the number of values to return | default is 25</li>
-</ul>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comptel AFOM API</title>
+</head>
+<body>
+    <h1>Comptel AFOM API</h1>
 
-<h3>Search</h3>
-<p>both parameters are required for search to work</p>
-<ul>
-    <li>search - the item to search for</li>
-    <li>in - which column to search in</li>
-</ul>
+    <h2>Routes</h2>
+    <ul>
+        <li><a href="https://comptel-api.herokuapp.com/api/resolutions">https://comptel-api.herokuapp.com/api/resolutions</a></li>
+        <li><a href="https://comptel-api.herokuapp.com/api/fallouts">https://comptel-api.herokuapp.com/api/fallouts</a></li>
+        <li><a href="https://comptel-api.herokuapp.com/api/details/AFOM00013">https://comptel-api.herokuapp.com/api/details/:FalloutID</a></li>
+    </ul>
+    <hr>
+    <h2>Accepted query params:</h2>
+    <h3>Pagination</h3>
+    <ul>
+        <li>page - sets the page of results | default is 1</li>
+        <li>rows - sets the number of values to return | default is 25</li>
+    </ul>
 
-<h3>Sort</h3>
-<p>to invert the sort, add a minuse (-) at the start of the column name</p>
-<ul>
-    <li>sort - the column to sort by</li>
-</ul>
-<hr>
-<p>An example GET request:</p>
-<ul>
-    <li>https://comptel-api.herokuapp.com/api/resolutions?page=1&rows=100&sort=-creation_timestamp&in=status&search=STARTED</li>
-    <li>https://comptel-api.herokuapp.com/api/fallouts?page=1&rows=100&sort=-creation_timestamp&in=status&search=STARTED</li>
-</ul>
+    <h3>Search</h3>
+    <p>both parameters are required for search to work</p>
+    <ul>
+        <li>search - the item to search for</li>
+        <li>in - which column to search in</li>
+    </ul>
+
+    <h3>Sort</h3>
+    <p>to invert the sort, add a minuse (-) at the start of the column name</p>
+    <ul>
+        <li>sort - the column to sort by</li>
+    </ul>
+    <hr>
+    <p>An example GET request:</p>
+    <ul>
+        <li>https://comptel-api.herokuapp.com/api/resolutions?page=1&rows=100&sort=-creation_timestamp&in=status&search=STARTED</li>
+        <li>https://comptel-api.herokuapp.com/api/fallouts?page=1&rows=100&sort=-creation_timestamp&in=status&search=STARTED</li>
+    </ul>
+</body>
+</html>
