@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 var mongoose = require('mongoose');
-var io = require('socket.io')(app);
 
 mongoose.connect('public:swinburne@ds117899.mlab.com:17899/comptel-afom');
 
@@ -14,6 +13,8 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 
 var app = express();
+
+var io = require('socket.io')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
