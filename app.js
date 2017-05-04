@@ -14,7 +14,7 @@ var api = require('./routes/api');
 
 var app = express();
 
-var io = require('socket.io')(app);
+// var io = require('socket.io')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
