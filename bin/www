@@ -6,10 +6,9 @@
 
 var app = require('../app');
 var debug = require('debug')('comptel-api:server');
-var http = require('http');
+var http = require('http').Server(app);
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var io = require('socket.io')(http);
 
 /**
  * Get port from environment and store in Express.
@@ -92,6 +91,6 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-io.on('connection', function (socket) {
-	console.log('----------');
+io.on('connection', function(socket){
+  console.log('---------------------------');
 });
