@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 var mongoose = require('mongoose');
-var socketio = require('socketio');
+var socketio = require('socket.io');
 
 mongoose.connect('public:swinburne@ds117899.mlab.com:17899/comptel-afom');
 
