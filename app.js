@@ -52,6 +52,24 @@ app.use(function (req, res, next) {
 	next();
 });
 
+var userCount = 0;
+
+function shoCount () {
+	console.log('------------------- Users connected: ' + this.userCount);
+}
+
+io.on('connection', function (socket) {
+	this.userCount++;
+
+	shoCount();
+
+	socket.on('disconnect', function () {
+		this.userCount--;
+		shoCount();
+	});
+});
+
+
 app.use('/', index);
 app.use('/api', api);
 
@@ -73,21 +91,5 @@ app.use(function (err, req, res, next) {
 	res.render('error');
 });
 
-var userCount = 0;
-
-function shoCount () {
-	console.log('------------------- Users connected: ' + this.userCount);
-}
-
-io.on('connection', function (socket) {
-	this.userCount++;
-
-	shoCount();
-
-	socket.on('disconnect', function () {
-		this.userCount--;
-		shoCount();
-	});
-});
 
 module.exports = app;
