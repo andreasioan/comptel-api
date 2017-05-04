@@ -61,7 +61,7 @@ function shoCount () {
 io.on('connection', function (socket) {
 	this.userCount++;
 
-	shoCount();
+	this.shoCount();
 
 	socket.on('disconnect', function () {
 		this.userCount--;
