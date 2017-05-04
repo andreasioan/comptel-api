@@ -27,8 +27,8 @@ io.on('connection', function (socket) {
   count++;
   userCount();
 
-  socket.on('app', function () {
-    console.log('#------------------- THEY\'RE IN MY APP');
+  socket.on('app', function (msg) {
+    console.log('#------------------- ' + msg);
   });
 
   socket.on('disconnect', function () {
