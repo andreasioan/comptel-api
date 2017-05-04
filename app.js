@@ -13,8 +13,7 @@ mongoose.connect('public:swinburne@ds117899.mlab.com:17899/comptel-afom');
 var app = express();
 
 // Socket.io
-var io = socketio();
-app.io = io;
+app.io = socketio;
 
 console.log('Before io ------------');
 io.on( "connection", function( socket )
