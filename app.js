@@ -15,8 +15,7 @@ var api = require('./routes/api');
 
 var app = express();
 
-var io = sock
-
+var io = socketio();
 app.io = io;
 
 // view engine setup
