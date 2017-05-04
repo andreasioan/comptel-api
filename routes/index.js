@@ -1,13 +1,19 @@
-var express = require('express');
-var router = express.Router();
+module.exports = function (io) {
+  var express = require('express');
+  var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
+  io.on("connection", function (socket) {
+    console.log("A user connected");
+  });
 
-router.get('/home', function (req, res, next) {
-  res.redirect('/home/index.html');
-})
+  /* GET home page. */
+  router.get('/', function (req, res, next) {
+    res.render('index');
+  });
 
-module.exports = router;
+  router.get('/home', function (req, res, next) {
+    res.redirect('/home/index.html');
+  })
+
+  return router;
+}

@@ -10,9 +10,6 @@ var socketio = require('socket.io');
 
 mongoose.connect('public:swinburne@ds117899.mlab.com:17899/comptel-afom');
 
-var index = require('./routes/index');
-var api = require('./routes/api');
-
 var app = express();
 
 // Socket.io
@@ -25,6 +22,9 @@ io.on( "connection", function( socket )
     console.log( "A user connected" );
 });
 console.log('After io ------------');
+
+var index = require('./routes/index')(io);
+var api = require('./routes/api');
 
 
 // view engine setup
