@@ -73,11 +73,18 @@ app.use(function (err, req, res, next) {
 
 var userCount = 0;
 
+function shoCount () {
+	console.log('------------------- Users connected: ' + this.userCount);
+}
+
 io.on('connection', function (socket) {
 	this.userCount++;
 
+	shoCount();
+
 	socket.on('disconnect', function () {
 		this.userCount--;
+		shoCount();
 	});
 });
 
