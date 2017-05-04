@@ -20,3 +20,7 @@
     "socket.io": "^1.7.3"
   }
 }
+
+
+// Heroku Live Logs
+// heroku logs --app comptel-api -t
