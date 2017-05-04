@@ -19,10 +19,13 @@ var app = express();
 var io = socketio();
 app.io = io;
 
+console.log('Before io ------------');
 io.on( "connection", function( socket )
 {
     console.log( "A user connected" );
 });
+console.log('After io ------------');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
