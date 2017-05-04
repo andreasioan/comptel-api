@@ -52,21 +52,8 @@ app.use(function (req, res, next) {
 	next();
 });
 
-var userCount = 0;
-
-function shoCount () {
-	console.log('------------------- Users connected: ' + this.userCount);
-}
-
 io.on('connection', function (socket) {
-	this.userCount++;
-
-	this.shoCount();
-
-	socket.on('disconnect', function () {
-		this.userCount--;
-		shoCount();
-	});
+	console.log('----------');
 });
 
 
