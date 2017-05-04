@@ -16,9 +16,10 @@ var app = express();
 
 var sockIO = require('socket.io')();
 app.sockIO = sockIO;
-
+var count = 0;
 sockIO.on('connection', function(socket){
-    console.log('A client connection occurred!');
+	count++;
+    console.log('--------- ' + count);
 });
 
 // view engine setup
