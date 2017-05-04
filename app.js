@@ -14,13 +14,25 @@ var api = require('./routes/api');
 
 var app = express();
 
-var sockIO = require('socket.io')();
-app.sockIO = sockIO;
+var io = require('socket.io')();
+app.io = io;
+
 var count = 0;
-sockIO.on('connection', function(socket){
+
+function userCount () {
+	console.log(' #---------------- Current user count: ' + count);
+}
+
+io.on('connection', function(socket){
 	count++;
-    console.log('--------- ' + count);
+    userCount();
+
+	socket.on('disconnect', function () {
+		count--;
+		userCount();
+	});
 });
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
