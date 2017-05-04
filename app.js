@@ -28,7 +28,7 @@ io.on('connection', function (socket) {
   userCount();
 
   socket.on('app', function (msg) {
-    console.log('#------------------- ' + msg);
+    console.log('#------------------------------------ ' + msg);
   });
 
   socket.on('disconnect', function () {
