@@ -23,6 +23,9 @@ router.get('/dashboard', function (req, res, next) {
         .where('creation_timestamp')
         .gte(moment(new Date('2017-03-22')).startOf('day').toISOString())
         .lte(moment(new Date('2017-03-22')).endOf('day').toISOString());
+    let totalUresolvedFalloutsQuery = Fallout.count()
+        .where('status')
+        .equals(!'CLOSED-SUCCESSFUL');
 
     let promises = {
         fallouts: Fallout.find().limit(5),
@@ -30,7 +33,8 @@ router.get('/dashboard', function (req, res, next) {
         total_fallouts: Fallout.count(),
         total_resolutions: Resolution.count(),
         fallouts_today: falloutsTodayQuery,
-        resolutions_today: resolutionsTodayQuery
+        resolutions_today: resolutionsTodayQuery,
+        total_unresolved_fallouts: totalUresolvedFalloutsQuery
     };
 
     promises = Object.keys(promises).map((x) => promises[x]);
@@ -41,7 +45,8 @@ router.get('/dashboard', function (req, res, next) {
             total_fallouts: data[2],
             total_resolutions: data[3],
             fallouts_today: data[4],
-            resolutions_today: data[5]
+            resolutions_today: data[5],
+            total_unresolved_fallouts: data[6]
         };
 
         return res.status(200).json(result);
