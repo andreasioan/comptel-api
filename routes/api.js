@@ -17,12 +17,12 @@ router.get('/dashboard', function (req, res, next) {
 
     let falloutsTodayQuery = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date('2017-03-22')).startOf('day').toISOString())
+        .gte(moment(new Date()).startOf('day').toISOString())
         .lte(moment(new Date()).endOf('day').toISOString());
     let resolutionsTodayQuery = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date('2017-03-22')).startOf('day').toISOString())
-        .lte(moment(new Date('2017-03-22')).endOf('day').toISOString());
+        .gte(moment(new Date()).startOf('day').toISOString())
+        .lte(moment(new Date()).endOf('day').toISOString());
     let totalUresolvedFalloutsQuery = Fallout.find({
         'status': {
             $ne: 'CLOSED_SUCCESSFUL'
