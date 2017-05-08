@@ -5,10 +5,10 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     id: {type: String},
-    source: {type: String},
-    source_fallou_id: {type: String},
-    error_code: {type: String},
-    creation_timestamp: {type: String},
+    source_system: {type: String},
+    source_fallout_id: {type: String},
+    source_error_code: {type: String},
+    creation_date: {type: String},
     due_date: {type: String},
     status: {type: String}
 });

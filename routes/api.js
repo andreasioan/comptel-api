@@ -16,11 +16,11 @@ var Detail = require('../models/detail');
 router.get('/dashboard', function (req, res, next) {
 
     let falloutsTodayQuery = Fallout.count()
-        .where('creation_timestamp')
+        .where('creation_date')
         .gte(moment(new Date('2017-03-22')).startOf('day').toISOString())
         .lte(moment(new Date()).endOf('day').toISOString());
     let resolutionsTodayQuery = Resolution.count()
-        .where('creation_timestamp')
+        .where('creation_date')
         .gte(moment(new Date('2017-03-22')).startOf('day').toISOString())
         .lte(moment(new Date('2017-03-22')).endOf('day').toISOString());
     let totalUresolvedFalloutsQuery = Fallout.find({
@@ -63,7 +63,7 @@ router.get('/fallouts', function (req, res, next) {
     if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
-        query.where('creation_timestamp').gte(moment(fromDate).startOf('day').toISOString()).lte(moment(toDate).endOf('day').toISOString());
+        query.where('creation_date').gte(moment(fromDate).startOf('day').toISOString()).lte(moment(toDate).endOf('day').toISOString());
     }
 
     //Where Due Date
@@ -101,7 +101,7 @@ router.get('/resolutions', function (req, res, next) {
     if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
-        query.where('creation_timestamp').gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+        query.where('creation_date').gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
     }
 
     //Where Due Date

@@ -8,10 +8,12 @@ var schema = new Schema({
     source_fallout_id: {type: String},
     action_id: {type: String},
     target_system: {type: String},
-    creation_timestamp: {type: String},
+    creation_date: {type: String},
     due_date: {type: String},
     status: {type: String},
-    retry_count: {type: String}
+    retry_count: {type: String},
+    rror_code: {type: String},
+    error_desc: {type: String}
 });
 
 schema.plugin(mongoosePaginate);
