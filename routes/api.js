@@ -32,53 +32,53 @@ router.get('/dashboard', function (req, res, next) {
 
     let falloutsMonth0 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(5, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(5, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let falloutsMonth1 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(6, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(6, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let falloutsMonth2 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(7, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(7, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let falloutsMonth3 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(8, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(8, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let falloutsMonth4 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(9, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(9, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let falloutsMonth5 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(10, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
 
     let resolutionsMonth0 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(5, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(5, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let resolutionsMonth1 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(6, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(6, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let resolutionsMonth2 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(7, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(7, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let resolutionsMonth3 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(8, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(8, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let resolutionsMonth4 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(9, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(9, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
     let resolutionsMonth5 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'months').startOf('month').toISOString())
-        .lte(moment(new Date()).subtract(10, 'months').endOf('month').toISOString());
+        .gte(moment(new Date()).startOf('month').toISOString())
+        .lte(moment(new Date()).endOf('month').toISOString());
 
     let promises = {
         fallouts: Fallout.find().limit(5),
