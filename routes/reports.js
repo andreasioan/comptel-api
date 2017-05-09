@@ -108,15 +108,13 @@ router.get('/creationdate', function (req, res, next) {
             fallouts_month_4_count: data[4],
             fallouts_month_5_count: data[5],
             fallouts_month_6_count: data[6],
-            fallouts_month_7_count: data[7],
-            resolutions_month_0_count: data[8],
-            resolutions_month_1_count: data[9],
-            resolutions_month_2_count: data[10],
-            resolutions_month_3_count: data[11],
-            resolutions_month_4_count: data[12],
-            resolutions_month_5_count: data[13],
-            resolutions_month_6_count: data[14],
-            resolutions_month_7_count: data[15]
+            resolutions_month_0_count: data[7],
+            resolutions_month_1_count: data[8],
+            resolutions_month_2_count: data[9],
+            resolutions_month_3_count: data[10],
+            resolutions_month_4_count: data[11],
+            resolutions_month_5_count: data[12],
+            resolutions_month_6_count: data[13]
         };
 
         return res.status(200).json(result);
