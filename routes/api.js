@@ -231,9 +231,4 @@ router.get('/details/:fallout_id', function (req, res, next) {
         });
 });
 
-// Get Reports
-router.get('/reports', function (req, res,next) {
-    return res.status(200).json({msg: 'twat'});
-});
-
 module.exports = router;
