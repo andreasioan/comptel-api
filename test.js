@@ -6,41 +6,59 @@ var mongoose = require('mongoose');
 
 mongoose.connect('comptel:swinburne@ds117899.mlab.com:17899/comptel-afom');
 
-
-// var fallouts = Fallout.find(function (err, result) {
+// Update dates to ISO format
+// var done = 0
+// var resolutions = Resolution.find(function (err, result) {
 //     for (var i = 0; i < result.length; i++) {
 
-//         console.log(result[i].creation_timestamp = new Date(result[i].creation_timestamp).toISOString());
+//         console.log(result[i].creation_date = new Date(result[i].creation_date).toISOString());
 //         console.log(result[i].due_date = new Date(result[i].due_date).toISOString());
-//         result[i].save(function(err, save) {
+//         result[i].save(function (err, save) {
+//             done++;
 //             if (err) {
 //                 console.log(err);
 //             } else {
 //                 console.log(save);
 //             }
-
+//             console.log('Done: ' + done);
+//             if (done === result.length) {
+//                 exit();
+//             }
 //         });
-//         console.log('Done: ' + i);
+
 //     }
 // });
 
-var resolutions = Resolution.find(function (err, result) {
+var done = 0;
+var errors = ['null'];
+
+var fallouts = Fallout.find(function (err, result) {
     for (var i = 0; i < result.length; i++) {
-        let momDate = moment(result[i].creation_timestamp + " +000", "DD-MM-YY HH:mm Z");
-        let momDueDate = moment(result[i].due_date + " +000", "DD-MM-YY HH:mm Z");
+        done++;
+        if (errors.indexOf(result[i].source_error_code) == -1) {
+            errors.push(result[i].source_error_code);
+        }
+        if (done === result.length) {
+            errors.sort(function (a, b) {
+                if (a < b) {
+                    return -1;
+                }
+                if (a > b) {
+                    return 1;
+                }
 
-        result[i].creation_timestamp = new Date(momDate).toISOString();
-        result[i].due_date = new Date(momDueDate).toISOString();
-        result[i].save(function(err, save) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(save);
+                return 0;
+            });
+            for (var k = 0; k < errors.length; k++) {
+                console.log(errors[k]);
             }
-
-        });
-        console.log('Done: ' + i);
+            exit();
+        }
     }
 });
 
-// console.log(moment('	2017-03-13T12:10:00.000Z').startOf('day').toISOString());
+function exit() {
+    console.log('Complete.');
+    mongoose.disconnect();
+}
+

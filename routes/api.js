@@ -23,11 +23,12 @@ router.get('/dashboard', function (req, res, next) {
         .where('creation_date')
         .gte(moment(new Date()).startOf('day').toISOString())
         .lte(moment(new Date()).endOf('day').toISOString());
-    let totalUresolvedFalloutsQuery = Fallout.find({
-        'status': {
-            $ne: 'CLOSED_SUCCESSFUL'
-        }
-    }).count();
+    let totalUresolvedFalloutsQuery = Fallout.count({
+        '$and': [
+            { 'status': { '$ne': 'CLOSED-FAILURE' } },
+            { 'status': { '$ne': 'CLOSED-SUCCESSFUL' } }
+        ]
+    });
 
     let promises = {
         fallouts: Fallout.find().limit(5),
