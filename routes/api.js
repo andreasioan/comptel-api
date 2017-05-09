@@ -17,12 +17,12 @@ router.get('/dashboard', function (req, res, next) {
 
     let falloutsTodayQuery = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).startOf('day').toISOString())
-        .lte(moment(new Date()).endOf('day').toISOString());
+        .gte(moment(new Date()).subtract(5, 'months').startOf('day').toISOString())
+        .lte(moment(new Date()).subtract(5, 'months').endOf('day').toISOString());
     let resolutionsTodayQuery = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).startOf('day').toISOString())
-        .lte(moment(new Date()).endOf('day').toISOString());
+        .gte(moment(new Date()).subtract(5, 'months').startOf('day').toISOString())
+        .lte(moment(new Date()).subtract(5, 'months').endOf('day').toISOString());
     let totalUresolvedFalloutsQuery = Fallout.count({
         '$and': [
             { 'status': { '$ne': 'CLOSED-FAILURE' } },
@@ -37,7 +37,12 @@ router.get('/dashboard', function (req, res, next) {
         total_resolutions: Resolution.count(),
         fallouts_today: falloutsTodayQuery,
         resolutions_today: resolutionsTodayQuery,
-        total_unresolved_fallouts: totalUresolvedFalloutsQuery
+        total_unresolved_fallouts: totalUresolvedFalloutsQuery,
+        startedCount: Fallout.count({ 'status': 'STARTED' }),
+        createdCount: Fallout.count({ 'status': 'CREATED' }),
+        errorCounte: Fallout.count({ 'status': 'ERROR' }),
+        closedFailureCount: Fallout.count({ 'status': 'CLOSED-FAILURE' }),
+        closedSuccessfullCount: Fallout.count({ 'status': 'CLOSED-SUCCESSFUL' })
     };
 
     promises = Object.keys(promises).map((x) => promises[x]);
@@ -49,7 +54,13 @@ router.get('/dashboard', function (req, res, next) {
             total_resolutions: data[3],
             fallouts_today: data[4],
             resolutions_today: data[5],
-            total_unresolved_fallouts: data[6]
+            total_unresolved_fallouts: data[6],
+            started_count: data[7],
+            created_count: data[8],
+            error_count: data[9],
+            closed_failure_count: data[10],
+            closed_successfull_count: data[11]
+
         };
 
         return res.status(200).json(result);
