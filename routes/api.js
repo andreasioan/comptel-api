@@ -30,6 +30,56 @@ router.get('/dashboard', function (req, res, next) {
         ]
     });
 
+    let falloutsMonth0 = Fallout.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(5, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(5, 'months').endOf('month').toISOString());
+    let falloutsMonth1 = Fallout.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(6, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(6, 'months').endOf('month').toISOString());
+    let falloutsMonth2 = Fallout.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(7, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(7, 'months').endOf('month').toISOString());
+    let falloutsMonth3 = Fallout.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(8, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(8, 'months').endOf('month').toISOString());
+    let falloutsMonth4 = Fallout.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(9, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(9, 'months').endOf('month').toISOString());
+    let falloutsMonth5 = Fallout.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(10, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(10, 'months').endOf('month').toISOString());
+
+    let resolutionsMonth0 = Resolution.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(5, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(5, 'months').endOf('month').toISOString());
+    let resolutionsMonth1 = Resolution.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(6, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(6, 'months').endOf('month').toISOString());
+    let resolutionsMonth2 = Resolution.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(7, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(7, 'months').endOf('month').toISOString());
+    let resolutionsMonth3 = Resolution.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(8, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(8, 'months').endOf('month').toISOString());
+    let resolutionsMonth4 = Resolution.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(9, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(9, 'months').endOf('month').toISOString());
+    let resolutionsMonth5 = Resolution.count()
+        .where('creation_date')
+        .gte(moment(new Date()).subtract(10, 'months').startOf('month').toISOString())
+        .lte(moment(new Date()).subtract(10, 'months').endOf('month').toISOString());
+
     let promises = {
         fallouts: Fallout.find().limit(5),
         resolutions: Resolution.find().limit(5),
@@ -42,7 +92,19 @@ router.get('/dashboard', function (req, res, next) {
         createdCount: Fallout.count({ 'status': 'CREATED' }),
         errorCounte: Fallout.count({ 'status': 'ERROR' }),
         closedFailureCount: Fallout.count({ 'status': 'CLOSED-FAILURE' }),
-        closedSuccessfullCount: Fallout.count({ 'status': 'CLOSED-SUCCESSFUL' })
+        closedSuccessfullCount: Fallout.count({ 'status': 'CLOSED-SUCCESSFUL' }),
+        falloutsMonth0Count: falloutsMonth0,
+        falloutsMonth1Count: falloutsMonth1,
+        falloutsMonth2Count: falloutsMonth2,
+        falloutsMonth3Count: falloutsMonth3,
+        falloutsMonth4Count: falloutsMonth4,
+        falloutsMonth5Count: falloutsMonth5,
+        resolutionsMonth0Count: resolutionsMonth0,
+        resolutionsMonth1Count: resolutionsMonth1,
+        resolutionsMonth2Count: resolutionsMonth2,
+        resolutionsMonth3Count: resolutionsMonth3,
+        resolutionsMonth4Count: resolutionsMonth4,
+        resolutionsMonth5Count: resolutionsMonth5
     };
 
     promises = Object.keys(promises).map((x) => promises[x]);
@@ -59,8 +121,19 @@ router.get('/dashboard', function (req, res, next) {
             created_count: data[8],
             error_count: data[9],
             closed_failure_count: data[10],
-            closed_successfull_count: data[11]
-
+            closed_successfull_count: data[11],
+            fallouts_month_0_count: data[12],
+            fallouts_month_1_count: data[13],
+            fallouts_month_2_count: data[14],
+            fallouts_month_3_count: data[15],
+            fallouts_month_4_count: data[16],
+            fallouts_month_5_count: data[17],
+            resolutions_month_0_count: data[18],
+            resolutions_month_1_count: data[19],
+            resolutions_month_2_count: data[20],
+            resolutions_month_3_count: data[21],
+            resolutions_month_4_count: data[22],
+            resolutions_month_5_count: data[23]
         };
 
         return res.status(200).json(result);
