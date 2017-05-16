@@ -104,7 +104,7 @@ router.get('/dates', function (req, res, next) {
         resolutionsMonth5.where('source').eq(req.query.source);
         resolutionsMonth6.where('source').eq(req.query.source);
     }
-
+console.log(falloutsMonth0);
     let promises = {
         falloutsMonth0Count: falloutsMonth0,
         falloutsMonth1Count: falloutsMonth1,
