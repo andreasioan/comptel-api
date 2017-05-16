@@ -14,6 +14,10 @@ router.get('/creationdate', function (req, res, next) {
     var dateType = req.query.datetype;
 
     switch (req.query.length) {
+        case 'hours':
+            subInc = 'hours';
+            startEnd = 'hour';
+            break;
         case 'months':
             subInc = 'months';
             startEnd = 'month';
@@ -121,6 +125,8 @@ router.get('/creationdate', function (req, res, next) {
         return res.status(200).json(result);
     });
 });
+
+router.get('');
 
 
 module.exports = router;
