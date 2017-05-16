@@ -81,8 +81,8 @@ router.get('/dashboard', function (req, res, next) {
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, 'days').endOf('day').toISOString());
 
     let promises = {
-        fallouts: Fallout.find().limit(5),
-        resolutions: Resolution.find().limit(5),
+        fallouts: Fallout.find().limit(5).sort('creation_date'),
+        resolutions: Resolution.find().limit(5).sort('creation_date'),
         total_fallouts: Fallout.count(),
         total_resolutions: Resolution.count(),
         fallouts_today: falloutsTodayQuery,
