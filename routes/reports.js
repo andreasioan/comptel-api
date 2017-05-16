@@ -87,6 +87,7 @@ router.get('/dates', function (req, res, next) {
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).endOf(startEnd).toISOString());
 
     if(req.query.source) {
+        console.log(req.query.source);
         falloutsMonth0.where('source').eq(req.query.source);
         falloutsMonth1.where('source').eq(req.query.source);
         falloutsMonth2.where('source').eq(req.query.source);
