@@ -86,6 +86,24 @@ router.get('/dates', function (req, res, next) {
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).endOf(startEnd).toISOString());
 
+    if(req.query.source) {
+        falloutsMonth0.where('source').eq(req.query.source);
+        falloutsMonth1.where('source').eq(req.query.source);
+        falloutsMonth2.where('source').eq(req.query.source);
+        falloutsMonth3.where('source').eq(req.query.source);
+        falloutsMonth4.where('source').eq(req.query.source);
+        falloutsMonth5.where('source').eq(req.query.source);
+        falloutsMonth6.where('source').eq(req.query.source);
+
+        resolutionsMonth0.where('source').eq(req.query.source);
+        resolutionsMonth1.where('source').eq(req.query.source);
+        resolutionsMonth2.where('source').eq(req.query.source);
+        resolutionsMonth3.where('source').eq(req.query.source);
+        resolutionsMonth4.where('source').eq(req.query.source);
+        resolutionsMonth5.where('source').eq(req.query.source);
+        resolutionsMonth6.where('source').eq(req.query.source);
+    }
+
     let promises = {
         falloutsMonth0Count: falloutsMonth0,
         falloutsMonth1Count: falloutsMonth1,
