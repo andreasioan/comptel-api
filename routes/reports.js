@@ -7,7 +7,7 @@ var Resolution = require('../models/resolution');
 var Detail = require('../models/detail');
 
 // Get Reports
-router.get('/creationdate', function (req, res, next) {
+router.get('/dates', function (req, res, next) {
 
     var subInc = 'days';
     var startEnd = 'day';
@@ -126,7 +126,9 @@ router.get('/creationdate', function (req, res, next) {
     });
 });
 
-router.get('');
+router.get('/fallout', function(req, res, next) {
+
+});
 
 
 module.exports = router;
