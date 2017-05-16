@@ -219,8 +219,9 @@ router.get('/fallout', function (req, res, next) {
 
             return res.status(200).json(result);
         });
-
     }
+
+    res.send('nah mate not implemented');
 
 
 
