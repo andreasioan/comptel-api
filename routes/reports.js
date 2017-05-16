@@ -178,7 +178,7 @@ router.get('/fallout', function (req, res, next) {
             .where('source_error_code')
             .eq(error + (parseInt(num) + 14));
 
-        console.log(error + (parseInt(num) + 1));
+        console.log(error + (parseInt(num) + 14));
 
         let promises = {
             errorCode0: errorCode0,
@@ -192,6 +192,7 @@ router.get('/fallout', function (req, res, next) {
             errorCode8: errorCode8,
             errorCode9: errorCode9,
             errorCode10: errorCode10,
+            errorCode11: errorCode11,
             errorCode12: errorCode12,
             errorCode13: errorCode13,
             errorCode14: errorCode14
@@ -214,7 +215,7 @@ router.get('/fallout', function (req, res, next) {
                 error_code_11: data[11],
                 error_code_12: data[12],
                 error_code_13: data[13],
-                error_code_14: data[14],
+                error_code_14: data[14]
             };
 
             return res.status(200).json(result);
