@@ -226,5 +226,38 @@ router.get('/fallout', function (req, res, next) {
 
 });
 
+router.get('/falloutaverage', function (req, res, next) {
+    let falloutAverage0 = Fallout.count()
+        .where('source_error_code')
+        .gte('ERROR1001')
+        .lte('ERROR1015');
+    let falloutAverage1 = Fallout.count()
+        .where('source_error_code')
+        .gte('ERROR1101')
+        .lte('ERROR1115');
+    let falloutAverage2 = Fallout.count()
+        .where('source_error_code')
+        .gte('ERROR1201')
+        .lte('ERROR1215');
+
+
+    let promises = {
+        falloutAverage0: falloutAverage0,
+        falloutAverage1: falloutAverage1,
+        falloutAverage2: falloutAverage2
+    };
+
+    promises = Object.keys(promises).map((x) => promises[x]);
+    return Promise.all(promises).then((data) => {
+        let result = {
+            fallout_average_0: data[0],
+            fallout_average_1: data[1],
+            fallout_average_2: data[2]
+        };
+
+        return res.status(200).json(result);
+    });
+});
+
 
 module.exports = router;
