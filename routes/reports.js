@@ -11,6 +11,7 @@ router.get('/creationdate', function (req, res, next) {
 
     var subInc = 'days';
     var startEnd = 'day';
+    var dateType = req.query.datetype === 'due' ? req.query.datetype : 'creation';
 
     switch (req.query.length) {
         case 'months':
@@ -24,60 +25,60 @@ router.get('/creationdate', function (req, res, next) {
     }
 
     let falloutsMonth0 = Fallout.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(0, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(0, subInc).endOf(startEnd).toISOString());
     let falloutsMonth1 = Fallout.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(1, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(1, subInc).endOf(startEnd).toISOString());
     let falloutsMonth2 = Fallout.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(2, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(2, subInc).endOf(startEnd).toISOString());
     let falloutsMonth3 = Fallout.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(3, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(3, subInc).endOf(startEnd).toISOString());
     let falloutsMonth4 = Fallout.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(4, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(4, subInc).endOf(startEnd).toISOString());
     let falloutsMonth5 = Fallout.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(5, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(5, subInc).endOf(startEnd).toISOString());
     let falloutsMonth6 = Fallout.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).endOf(startEnd).toISOString());
 
     let resolutionsMonth0 = Resolution.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(0, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(0, subInc).endOf(startEnd).toISOString());
     let resolutionsMonth1 = Resolution.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(1, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(1, subInc).endOf(startEnd).toISOString());
     let resolutionsMonth2 = Resolution.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(2, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(2, subInc).endOf(startEnd).toISOString());
     let resolutionsMonth3 = Resolution.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(3, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(3, subInc).endOf(startEnd).toISOString());
     let resolutionsMonth4 = Resolution.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(4, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(4, subInc).endOf(startEnd).toISOString());
     let resolutionsMonth5 = Resolution.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(5, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(5, subInc).endOf(startEnd).toISOString());
     let resolutionsMonth6 = Resolution.count()
-        .where('creation_date')
+        .where(dateType)
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).endOf(startEnd).toISOString());
 
