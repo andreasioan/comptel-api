@@ -178,8 +178,6 @@ router.get('/fallout', function (req, res, next) {
             .where('source_error_code')
             .eq(error + (parseInt(num) + 14));
 
-        console.log(error + (parseInt(num) + 14));
-
         let promises = {
             errorCode0: errorCode0,
             errorCode1: errorCode1,
