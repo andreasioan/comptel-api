@@ -11,7 +11,7 @@ router.get('/creationdate', function (req, res, next) {
 
     var subInc = 'days';
     var startEnd = 'day';
-    var dateType = req.query.datetype === 'due' ? req.query.datetype : 'creation';
+    var dateType = req.query.datetype;
 
     switch (req.query.length) {
         case 'months':
