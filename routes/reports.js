@@ -94,7 +94,9 @@ router.get('/dates', function (req, res, next) {
         falloutsMonth4.where('source_system').eq(req.query.source);
         falloutsMonth5.where('source_system').eq(req.query.source);
         falloutsMonth6.where('source_system').eq(req.query.source);
+    }
 
+    if(req.query.target) {
         resolutionsMonth0.where('target_system').eq(req.query.target);
         resolutionsMonth1.where('target_system').eq(req.query.target);
         resolutionsMonth2.where('target_system').eq(req.query.target);
