@@ -239,6 +239,11 @@ router.get('/fallout', function (req, res, next) {
             return res.status(200).json(result);
         });
     }
+
+    res.status(200).json('nah mate not implemented');
+
+
+
 });
 
 router.get('/falloutaverage', function (req, res, next) {
