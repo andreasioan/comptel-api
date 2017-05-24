@@ -240,7 +240,26 @@ router.get('/fallout', function (req, res, next) {
         });
     }
 
-    res.status(200).json('nah mate not implemented');
+    let promises = {
+        startedCount: Fallout.count({ 'status': 'STARTED' }),
+        createdCount: Fallout.count({ 'status': 'CREATED' }),
+        errorCounte: Fallout.count({ 'status': 'ERROR' }),
+        closedFailureCount: Fallout.count({ 'status': 'CLOSED-FAILURE' }),
+        closedSuccessfullCount: Fallout.count({ 'status': 'CLOSED-SUCCESSFUL' })
+    };
+
+    promises = Object.keys(promises).map((x) => promises[x]);
+    return Promise.all(promises).then((data) => {
+        let result = {
+            started_count: data[0],
+            created_count: data[1],
+            error_count: data[2],
+            closed_failure_count: data[3],
+            closed_successfull_count: data[4]
+        };
+
+        return res.status(200).json(result);
+    });
 
 
 
