@@ -241,10 +241,10 @@ router.get('/fallout', function (req, res, next) {
     } else if (req.query.source) {
 
         let startedCountQuery = Fallout.count().where('status').eq('STARTED');
-        let createdCountQuery = Fallout.count().where('status').eq('STARTED');
-        let errorCountQuery = Fallout.count().where('status').eq('STARTED');
-        let closedFailureCountQuery = Fallout.count().where('status').eq('STARTED');
-        let closedSuccessfullCountQuery = Fallout.count().where('status').eq('STARTED');
+        let createdCountQuery = Fallout.count().where('status').eq('CREATED');
+        let errorCountQuery = Fallout.count().where('status').eq('ERROR');
+        let closedFailureCountQuery = Fallout.count().where('status').eq('CLOSED-FAILURE');
+        let closedSuccessfullCountQuery = Fallout.count().where('status').eq('CLOSED-SUCCESSFUL');
 
         if (req.query.source != 'All') {
             startedCountQuery.where('source_system').eq(req.query.source);
