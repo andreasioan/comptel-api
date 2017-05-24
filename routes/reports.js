@@ -279,5 +279,7 @@ router.get('/falloutaverage', function (req, res, next) {
     });
 });
 
+router.get();
+
 
 module.exports = router;

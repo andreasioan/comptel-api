@@ -77,7 +77,7 @@ app.use(function (req, res, next) {
 
 app.use('/', index);
 app.use('/api', api);
-app.use('/api/reports', reports);
+// app.use('/api/reports', reports);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

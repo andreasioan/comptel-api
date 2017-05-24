@@ -11,6 +11,8 @@ var Detail = require('../models/detail');
 // cant treat them as dates without an extreme 
 // performance hit
 
+router.use('/reports', require('./reports'));
+
 
 // Get Dashboard
 router.get('/dashboard', function (req, res, next) {
