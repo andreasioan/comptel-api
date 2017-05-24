@@ -86,7 +86,7 @@ router.get('/dates', function (req, res, next) {
         .gte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).startOf(startEnd).toISOString())
         .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, subInc).endOf(startEnd).toISOString());
 
-    if(req.query.source) {
+    if (req.query.source) {
         falloutsMonth0.where('source_system').eq(req.query.source);
         falloutsMonth1.where('source_system').eq(req.query.source);
         falloutsMonth2.where('source_system').eq(req.query.source);
@@ -96,7 +96,7 @@ router.get('/dates', function (req, res, next) {
         falloutsMonth6.where('source_system').eq(req.query.source);
     }
 
-    if(req.query.target) {
+    if (req.query.target) {
         resolutionsMonth0.where('target_system').eq(req.query.target);
         resolutionsMonth1.where('target_system').eq(req.query.target);
         resolutionsMonth2.where('target_system').eq(req.query.target);
@@ -238,31 +238,43 @@ router.get('/fallout', function (req, res, next) {
 
             return res.status(200).json(result);
         });
-    }
+    } else if (req.query.source) {
 
-    let promises = {
-        startedCount: Fallout.count({ 'status': 'STARTED' }),
-        createdCount: Fallout.count({ 'status': 'CREATED' }),
-        errorCounte: Fallout.count({ 'status': 'ERROR' }),
-        closedFailureCount: Fallout.count({ 'status': 'CLOSED-FAILURE' }),
-        closedSuccessfullCount: Fallout.count({ 'status': 'CLOSED-SUCCESSFUL' })
-    };
+        let startedCountQuery = Fallout.count().where('status').eq('STARTED');
+        let createdCountQuery = Fallout.count().where('status').eq('STARTED');
+        let errorCountQuery = Fallout.count().where('status').eq('STARTED');
+        let closedFailureCountQuery = Fallout.count().where('status').eq('STARTED');
+        let closedSuccessfullCountQuery = Fallout.count().where('status').eq('STARTED');
 
-    promises = Object.keys(promises).map((x) => promises[x]);
-    return Promise.all(promises).then((data) => {
-        let result = {
-            started_count: data[0],
-            created_count: data[1],
-            error_count: data[2],
-            closed_failure_count: data[3],
-            closed_successfull_count: data[4]
+        if (req.query.source != 'All') {
+            startedCountQuery.where('source_system').eq(req.query.source);
+            createdCountQuery.where('source_system').eq(req.query.source);
+            errorCountQuery.where('source_system').eq(req.query.source);
+            closedFailureCountQuery.where('source_system').eq(req.query.source);
+            closedSuccessfullCountQuery.where('source_system').eq(req.query.source);
+        }
+
+        let promises = {
+            startedCount: startedCountQuery,
+            createdCount: createdCountQuery,
+            errorCount: errorCountQuery,
+            closedFailureCount: closedFailureCountQuery,
+            closedSuccessfullCount: closedSuccessfullCountQuery
         };
 
-        return res.status(200).json(result);
-    });
+        promises = Object.keys(promises).map((x) => promises[x]);
+        return Promise.all(promises).then((data) => {
+            let result = {
+                started_count: data[0],
+                created_count: data[1],
+                error_count: data[2],
+                closed_failure_count: data[3],
+                closed_successfull_count: data[4]
+            };
 
-
-
+            return res.status(200).json(result);
+        });
+    }
 });
 
 router.get('/falloutaverage', function (req, res, next) {
