@@ -10,4 +10,6 @@ router.get('/home', function (req, res, next) {
   res.redirect('/home/index.html');
 })
 
+router.use('/api', require('./api'));
+
 module.exports = router;

@@ -13,7 +13,6 @@ var Detail = require('../models/detail');
 
 router.use('/reports', require('./reports'));
 
-
 // Get Dashboard
 router.get('/dashboard', function (req, res, next) {
 
