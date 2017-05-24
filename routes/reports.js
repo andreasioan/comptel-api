@@ -147,7 +147,6 @@ router.get('/dates', function (req, res, next) {
 });
 
 router.get('/fallout', function (req, res, next) {
-
     if (req.query.code) {
         var error = 'ERROR';
         var num = req.query.code;
@@ -308,6 +307,80 @@ router.get('/falloutaverage', function (req, res, next) {
 
         return res.status(200).json(result);
     });
+});
+
+router.get('/resolution', function (req, res, next) {
+    if (req.query.target) {
+
+        let errorCode1 = Resolution.count()
+            .where('error_code')
+            .eq('ERR001');
+        let errorCode2 = Resolution.count()
+            .where('error_code')
+            .eq('ERR002');
+        let errorCode3 = Resolution.count()
+            .where('error_code')
+            .eq('ERR003');
+
+        if (req.query.target != 'All') {
+            errorCode1.where('target_system').eq(req.query.target);
+            errorCode2.where('target_system').eq(req.query.target);
+            errorCode3.where('target_system').eq(req.query.target);
+        }
+
+        let promises = {
+            errorCode1: errorCode1,
+            errorCode2: errorCode2,
+            errorCode3: errorCode3
+        };
+
+        promises = Object.keys(promises).map((x) => promises[x]);
+        return Promise.all(promises).then((data) => {
+            let result = {
+                error_code_0: data[0],
+                error_code_1: data[1],
+                error_code_2: data[2]
+            };
+
+            return res.status(200).json(result);
+        });
+    } else if (req.query.statusTarget) {
+
+        let startedCountQuery = Fallout.count().where('status').eq('STARTED');
+        let createdCountQuery = Fallout.count().where('status').eq('CREATED');
+        let errorCountQuery = Fallout.count().where('status').eq('ERROR');
+        let closedFailureCountQuery = Fallout.count().where('status').eq('CLOSED-FAILURE');
+        let closedSuccessfullCountQuery = Fallout.count().where('status').eq('CLOSED-SUCCESSFUL');
+
+        if (req.query.source != 'All') {
+            startedCountQuery.where('source_system').eq(req.query.source);
+            createdCountQuery.where('source_system').eq(req.query.source);
+            errorCountQuery.where('source_system').eq(req.query.source);
+            closedFailureCountQuery.where('source_system').eq(req.query.source);
+            closedSuccessfullCountQuery.where('source_system').eq(req.query.source);
+        }
+
+        let promises = {
+            startedCount: startedCountQuery,
+            createdCount: createdCountQuery,
+            errorCount: errorCountQuery,
+            closedFailureCount: closedFailureCountQuery,
+            closedSuccessfullCount: closedSuccessfullCountQuery
+        };
+
+        promises = Object.keys(promises).map((x) => promises[x]);
+        return Promise.all(promises).then((data) => {
+            let result = {
+                started_count: data[0],
+                created_count: data[1],
+                error_count: data[2],
+                closed_failure_count: data[3],
+                closed_successfull_count: data[4]
+            };
+
+            return res.status(200).json(result);
+        });
+    }
 });
 
 
