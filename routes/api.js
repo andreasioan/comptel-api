@@ -17,12 +17,12 @@ router.use('/reports', require('./reports'));
 router.get('/dashboard', function (req, res, next) {
     let falloutsTodayQuery = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(2, 'months').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(2, 'months').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(2, 'months').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(2, 'months').endOf('day').toISOString());
     let resolutionsTodayQuery = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(2, 'months').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(2, 'months').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(2, 'months').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(2, 'months').endOf('day').toISOString());
     let totalUresolvedFalloutsQuery = Fallout.count({
         '$and': [{
                 'status': {
@@ -39,53 +39,53 @@ router.get('/dashboard', function (req, res, next) {
 
     let falloutsDay0 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(1, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(1, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(1, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(1, 'days').endOf('day').toISOString());
     let falloutsDay1 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(2, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(2, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(2, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(2, 'days').endOf('day').toISOString());
     let falloutsDay2 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(3, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(3, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(3, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(3, 'days').endOf('day').toISOString());
     let falloutsDay3 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(4, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(4, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(4, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(4, 'days').endOf('day').toISOString());
     let falloutsDay4 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(5, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(5, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(5, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(5, 'days').endOf('day').toISOString());
     let falloutsDay5 = Fallout.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(6, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(6, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(6, 'days').endOf('day').toISOString());
 
     let resolutionsDay0 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(1, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(1, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(1, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(1, 'days').endOf('day').toISOString());
     let resolutionsDay1 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(2, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(2, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(2, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(2, 'days').endOf('day').toISOString());
     let resolutionsDay2 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(3, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(3, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(3, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(3, 'days').endOf('day').toISOString());
     let resolutionsDay3 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(4, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(4, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(4, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(4, 'days').endOf('day').toISOString());
     let resolutionsDay4 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(5, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(5, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(5, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(5, 'days').endOf('day').toISOString());
     let resolutionsDay5 = Resolution.count()
         .where('creation_date')
-        .gte(moment(new Date()).subtract(10, 'weeks').subtract(6, 'days').startOf('day').toISOString())
-        .lte(moment(new Date()).subtract(10, 'weeks').subtract(6, 'days').endOf('day').toISOString());
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(6, 'days').startOf('day').toISOString())
+        .lte(moment(new Date()).utc().subtract(10, 'weeks').subtract(6, 'days').endOf('day').toISOString());
 
     let promises = {
         fallouts: Fallout.find().limit(5).sort('-creation_date'),
@@ -166,13 +166,13 @@ router.get('/fallouts', function (req, res, next) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
         query.where('creation_date')
-            .gte(moment(fromDate).startOf('day').toISOString())
-            .lte(moment(toDate).endOf('day').toISOString());
+            .gte(moment(fromDate).utc().startOf('day').toISOString())
+            .lte(moment(toDate).utc().endOf('day').toISOString());
     } else if (req.query.createdateday) {
         let date = new Date(req.query.createdateday);
         query.where('creation_date')
-            .gte(moment(date).startOf('day').toISOString())
-            .lte(moment(date).endOf('day').toISOString());
+            .gte(moment(date).utc().startOf('day').toISOString())
+            .lte(moment(date).utc().endOf('day').toISOString());
     }
 
     // Where Due Date
@@ -180,13 +180,13 @@ router.get('/fallouts', function (req, res, next) {
         let fromDate = new Date(req.query.duedatefrom);
         let toDate = new Date(req.query.duedateto);
         query.where('due_date')
-            .gte(moment(fromDate).startOf('day').toISOString())
-            .lte(moment(toDate).endOf('day').toISOString());
+            .gte(moment(fromDate).utc().startOf('day').toISOString())
+            .lte(moment(toDate).utc().endOf('day').toISOString());
     } else if (req.query.duedateday) {
         let date = new Date(req.query.duedateday);
         query.where('due_date')
-            .gte(moment(date).startOf('day').toISOString())
-            .lte(moment(date).endOf('day').toISOString());
+            .gte(moment(date).utc().startOf('day').toISOString())
+            .lte(moment(date).utc().endOf('day').toISOString());
     }
 
     // Search
@@ -228,13 +228,13 @@ router.get('/resolutions', function (req, res, next) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
         query.where('creation_date')
-            .gte(moment(fromDate).startOf('day').toISOString())
-            .lte(moment(toDate).endOf('day').toISOString());
+            .gte(moment(fromDate).utc().startOf('day').toISOString())
+            .lte(moment(toDate).utc().endOf('day').toISOString());
     } else if (req.query.createdateday) {
         let date = new Date(req.query.createdateday);
         query.where('creation_date')
-            .gte(moment(date).startOf('day').toISOString())
-            .lte(moment(date).endOf('day').toISOString());
+            .gte(moment(date).utc().startOf('day').toISOString())
+            .lte(moment(date).utc().endOf('day').toISOString());
     }
 
     // Where Due Date
@@ -242,13 +242,13 @@ router.get('/resolutions', function (req, res, next) {
         let fromDate = new Date(req.query.duedatefrom);
         let toDate = new Date(req.query.duedateto);
         query.where('due_date')
-            .gte(moment(fromDate).startOf('day').toISOString())
-            .lte(moment(toDate).endOf('day').toISOString());
+            .gte(moment(fromDate).utc().startOf('day').toISOString())
+            .lte(moment(toDate).utc().endOf('day').toISOString());
     } else if (req.query.duedateday) {
         let date = new Date(req.query.duedateday);
         query.where('due_date')
-            .gte(moment(date).startOf('day').toISOString())
-            .lte(moment(date).endOf('day').toISOString());
+            .gte(moment(date).utc().startOf('day').toISOString())
+            .lte(moment(date).utc().endOf('day').toISOString());
     }
 
     // Search
