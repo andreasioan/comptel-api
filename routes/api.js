@@ -15,7 +15,7 @@ router.use('/reports', require('./reports'));
 
 // Get Dashboard
 router.get('/dashboard', function (req, res, next) {
-
+console.log('HEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY');
     let falloutsTodayQuery = Fallout.count()
         .where('creation_date')
         .gte(moment(new Date()).subtract(2, 'months').startOf('day').toISOString())
