@@ -24,9 +24,16 @@ router.get('/dashboard', function (req, res, next) {
         .gte(moment(new Date()).subtract(2, 'months').startOf('day').toISOString())
         .lte(moment(new Date()).subtract(2, 'months').endOf('day').toISOString());
     let totalUresolvedFalloutsQuery = Fallout.count({
-        '$and': [
-            { 'status': { '$ne': 'CLOSED-FAILURE' } },
-            { 'status': { '$ne': 'CLOSED-SUCCESSFUL' } }
+        '$and': [{
+                'status': {
+                    '$ne': 'CLOSED-FAILURE'
+                }
+            },
+            {
+                'status': {
+                    '$ne': 'CLOSED-SUCCESSFUL'
+                }
+            }
         ]
     });
 
@@ -88,11 +95,21 @@ router.get('/dashboard', function (req, res, next) {
         fallouts_today: falloutsTodayQuery,
         resolutions_today: resolutionsTodayQuery,
         total_unresolved_fallouts: totalUresolvedFalloutsQuery,
-        startedCount: Fallout.count({ 'status': 'STARTED' }),
-        createdCount: Fallout.count({ 'status': 'CREATED' }),
-        errorCounte: Fallout.count({ 'status': 'ERROR' }),
-        closedFailureCount: Fallout.count({ 'status': 'CLOSED-FAILURE' }),
-        closedSuccessfullCount: Fallout.count({ 'status': 'CLOSED-SUCCESSFUL' }),
+        startedCount: Fallout.count({
+            'status': 'STARTED'
+        }),
+        createdCount: Fallout.count({
+            'status': 'CREATED'
+        }),
+        errorCounte: Fallout.count({
+            'status': 'ERROR'
+        }),
+        closedFailureCount: Fallout.count({
+            'status': 'CLOSED-FAILURE'
+        }),
+        closedSuccessfullCount: Fallout.count({
+            'status': 'CLOSED-SUCCESSFUL'
+        }),
         falloutsDay0Count: falloutsDay0,
         falloutsDay1Count: falloutsDay1,
         falloutsDay2Count: falloutsDay2,
@@ -148,19 +165,43 @@ router.get('/fallouts', function (req, res, next) {
     if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
-        query.where('creation_date').gte(moment(fromDate).startOf('day').toISOString()).lte(moment(toDate).endOf('day').toISOString());
+        query.where('creation_date')
+            .gte(moment(fromDate).startOf('day').toISOString())
+            .lte(moment(toDate).endOf('day').toISOString());
+    } else if (req.query.createdateday) {
+        let date = new Date(req.query.createdateday);
+        query.where('creation_date')
+            .gte(moment(date).startOf('day').toISOString())
+            .lte(moment(date).endOf('day').toISOString());
     }
 
-    //Where Due Date
+    // Where Due Date
     if (req.query.duedatefrom && req.query.duedateto) {
         let fromDate = new Date(req.query.duedatefrom);
         let toDate = new Date(req.query.duedateto);
-        query.where('due_date').gte(moment(fromDate).startOf('day').toISOString()).lte(moment(toDate).endOf('day').toISOString());
+        query.where('due_date')
+            .gte(moment(fromDate).startOf('day').toISOString())
+            .lte(moment(toDate).endOf('day').toISOString());
+    } else if (req.query.duedateday) {
+        let date = new Date(req.query.duedateday);
+        query.where('due_date')
+            .gte(moment(date).startOf('day').toISOString())
+            .lte(moment(date).endOf('day').toISOString());
     }
 
     // Search
     if (req.query.search && req.query.in) {
         query.where(req.query.in).equals(req.query.search);
+    }
+
+    // By Source System
+    if(req.query.system) {
+        query.where('source_system').equals(req.query.system);
+    }
+
+    // By Status
+    if(req.query.status) {
+        query.where('status').equals(req.query.status);
     }
 
     Fallout.paginate(query, {
@@ -186,19 +227,43 @@ router.get('/resolutions', function (req, res, next) {
     if (req.query.createdatefrom && req.query.createdateto) {
         let fromDate = new Date(req.query.createdatefrom);
         let toDate = new Date(req.query.createdateto);
-        query.where('creation_date').gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+        query.where('creation_date')
+            .gte(moment(fromDate).startOf('day').toISOString())
+            .lte(moment(toDate).endOf('day').toISOString());
+    } else if (req.query.createdateday) {
+        let date = new Date(req.query.createdateday);
+        query.where('creation_date')
+            .gte(moment(date).startOf('day').toISOString())
+            .lte(moment(date).endOf('day').toISOString());
     }
 
-    //Where Due Date
+    // Where Due Date
     if (req.query.duedatefrom && req.query.duedateto) {
         let fromDate = new Date(req.query.duedatefrom);
         let toDate = new Date(req.query.duedateto);
-        query.where('due_date').gte(moment(fromDate).startOf('day')).lte(moment(toDate).endOf('day'));
+        query.where('due_date')
+            .gte(moment(fromDate).startOf('day').toISOString())
+            .lte(moment(toDate).endOf('day').toISOString());
+    } else if (req.query.duedateday) {
+        let date = new Date(req.query.duedateday);
+        query.where('due_date')
+            .gte(moment(date).startOf('day').toISOString())
+            .lte(moment(date).endOf('day').toISOString());
     }
 
     // Search
     if (req.query.search && req.query.in) {
         query.where(req.query.in).equals(req.query.search);
+    }
+
+    // By Source System
+    if(req.query.system) {
+        query.where('target_system').equals(req.query.system);
+    }
+
+    // By Status
+    if(req.query.status) {
+        query.where('status').equals(req.query.status);
     }
 
     Resolution.paginate(query, {
