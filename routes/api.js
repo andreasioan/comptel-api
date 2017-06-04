@@ -195,12 +195,12 @@ router.get('/fallouts', function (req, res, next) {
     }
 
     // By Source System
-    if(req.query.system) {
+    if (req.query.system) {
         query.where('source_system').equals(req.query.system);
     }
 
     // By Status
-    if(req.query.status) {
+    if (req.query.status) {
         query.where('status').equals(req.query.status);
     }
 
@@ -253,16 +253,21 @@ router.get('/resolutions', function (req, res, next) {
 
     // Search
     if (req.query.search && req.query.in) {
-        query.where(req.query.in).equals(req.query.search);
+        if (req.query.in === 'id') {
+            query.where(req.query.in).equals(parseint(req.query.search));
+        } else {
+            query.where(req.query.in).equals(req.query.search);
+        }
+
     }
 
     // By Source System
-    if(req.query.system) {
+    if (req.query.system) {
         query.where('target_system').equals(req.query.system);
     }
 
     // By Status
-    if(req.query.status) {
+    if (req.query.status) {
         query.where('status').equals(req.query.status);
     }
 
