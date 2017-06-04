@@ -381,7 +381,10 @@ router.get('/resolution', function (req, res, next) {
             return res.status(200).json(result);
         });
     }
-    res.status(418).json('you dun fucked up');
+    res.status(418).json({
+                title: 'you dun fucked up',
+                error: err
+            });
 });
 
 
