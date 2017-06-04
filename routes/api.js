@@ -254,11 +254,10 @@ router.get('/resolutions', function (req, res, next) {
     // Search
     if (req.query.search && req.query.in) {
         if (req.query.in === 'id') {
-            query.where(req.query.in).equals(parseint(req.query.search));
+            query.where(req.query.in).equals(parseInt(req.query.search));
         } else {
             query.where(req.query.in).equals(req.query.search);
         }
-
     }
 
     // By Source System
