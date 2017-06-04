@@ -310,7 +310,7 @@ router.get('/falloutaverage', function (req, res, next) {
 });
 
 router.get('/resolution', function (req, res, next) {
-    if (req.query.target) {
+    if (req.query.type === 'error') {
 
         let errorCode1 = Resolution.count()
             .where('error_code')
@@ -344,7 +344,7 @@ router.get('/resolution', function (req, res, next) {
 
             return res.status(200).json(result);
         });
-    } else if (req.query.statusTarget) {
+    } else if (req.query.type === 'status') {
 
         let startedCountQuery = Resolution.count().where('status').eq('STARTED');
         let closedFailureCountQuery = Resolution.count().where('status').eq('CLOSED-FAILURE');
