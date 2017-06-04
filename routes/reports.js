@@ -360,6 +360,7 @@ router.get('/resolution', function (req, res, next) {
             retryStartedCountQuery.where('target_system').eq(req.query.target);
             retrySuccessCountQuery.where('target_system').eq(req.query.target);
             retryFailureCountQuery.where('target_system').eq(req.query.target);
+            closedSuccessfullCountQuery.where('target_system').eq(req.query.target);
             errorCountQuery.where('target_system').eq(req.query.target);
         }
 
