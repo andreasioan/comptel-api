@@ -347,44 +347,50 @@ router.get('/resolution', function (req, res, next) {
     } else if (req.query.statusTarget) {
 
         let startedCountQuery = Fallout.count().where('status').eq('STARTED');
-        let createdCountQuery = Fallout.count().where('status').eq('CREATED');
-        let errorCountQuery = Fallout.count().where('status').eq('ERROR');
         let closedFailureCountQuery = Fallout.count().where('status').eq('CLOSED-FAILURE');
+        let retryStartedCountQuery = Fallout.count().where('status').eq('RETRY-STARTED');
+        let retrySuccessCountQuery = Fallout.count().where('status').eq('RETRY-SUCCESS');
         let closedSuccessfullCountQuery = Fallout.count().where('status').eq('CLOSED-SUCCESSFUL');
+        let retryFailureCountQuery = Fallout.count().where('status').eq('RETRY-FAILURE');
+        let errorCountQuery = Fallout.count().where('status').eq('RETRY-FAILURE');
 
         if (req.query.source != 'All') {
             startedCountQuery.where('source_system').eq(req.query.source);
-            createdCountQuery.where('source_system').eq(req.query.source);
-            errorCountQuery.where('source_system').eq(req.query.source);
             closedFailureCountQuery.where('source_system').eq(req.query.source);
-            closedSuccessfullCountQuery.where('source_system').eq(req.query.source);
+            retryStartedCountQuery.where('source_system').eq(req.query.source);
+            retrySuccessCountQuery.where('source_system').eq(req.query.source);
+            retryFailureCountQuery.where('source_system').eq(req.query.source);
+            errorCountQuery.where('source_system').eq(req.query.source);
         }
 
         let promises = {
             startedCount: startedCountQuery,
-            createdCount: createdCountQuery,
-            errorCount: errorCountQuery,
             closedFailureCount: closedFailureCountQuery,
-            closedSuccessfullCount: closedSuccessfullCountQuery
+            retryStartedCount: retryStartedCountQuery,
+            retrySuccessCount: retrySuccessCountQuery,
+            closedSuccessfullCount: closedSuccessfullCountQuery,
+            retryFailureCount: retryFailureCountQuery,
+            errorCount: errorCountQuery
         };
 
         promises = Object.keys(promises).map((x) => promises[x]);
         return Promise.all(promises).then((data) => {
             let result = {
                 started_count: data[0],
-                created_count: data[1],
-                error_count: data[2],
-                closed_failure_count: data[3],
-                closed_successfull_count: data[4]
+                closed_failure_count: data[1],
+                retry_started_count: data[2],
+                retry_success_count: data[3],
+                closed_successful_count: data[4],
+                retry_failure_count: data[5],
+                error_count: data[6]
             };
 
             return res.status(200).json(result);
         });
     }
-    res.status(418).json({
-                title: 'you dun fucked up',
-                error: err
-            });
+    return res.status(418).json({
+        title: 'you dun fucked up'
+    });
 });
 
 
