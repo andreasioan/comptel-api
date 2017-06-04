@@ -389,6 +389,10 @@ router.get('/resolution', function (req, res, next) {
             return res.status(200).json(result);
         });
     }
+    
+});
+
+router.get('/sourcedata', function(req, res, next) {
     return res.status(418).json({
         title: 'you dun fucked up'
     });
