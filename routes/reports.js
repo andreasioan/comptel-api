@@ -286,11 +286,26 @@ router.get('/fallout', function (req, res, next) {
         });
     } else if (req.query.source) {
 
-        let startedCountQuery = Fallout.count().where('status').eq('STARTED');
-        let createdCountQuery = Fallout.count().where('status').eq('CREATED');
-        let errorCountQuery = Fallout.count().where('status').eq('ERROR');
-        let closedFailureCountQuery = Fallout.count().where('status').eq('CLOSED-FAILURE');
-        let closedSuccessfullCountQuery = Fallout.count().where('status').eq('CLOSED-SUCCESSFUL');
+        let startedCountQuery = Fallout.count().where('status').eq('STARTED')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let createdCountQuery = Fallout.count().where('status').eq('CREATED')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let errorCountQuery = Fallout.count().where('status').eq('ERROR')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let closedFailureCountQuery = Fallout.count().where('status').eq('CLOSED-FAILURE')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let closedSuccessfullCountQuery = Fallout.count().where('status').eq('CLOSED-SUCCESSFUL')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
 
         if (req.query.source != 'All') {
             startedCountQuery.where('source_system').eq(req.query.source);
