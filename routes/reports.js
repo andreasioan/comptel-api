@@ -346,13 +346,13 @@ router.get('/resolution', function (req, res, next) {
         });
     } else if (req.query.statusTarget) {
 
-        let startedCountQuery = Fallout.count().where('status').eq('STARTED');
-        let closedFailureCountQuery = Fallout.count().where('status').eq('CLOSED-FAILURE');
-        let retryStartedCountQuery = Fallout.count().where('status').eq('RETRY-STARTED');
-        let retrySuccessCountQuery = Fallout.count().where('status').eq('RETRY-SUCCESS');
-        let closedSuccessfullCountQuery = Fallout.count().where('status').eq('CLOSED-SUCCESSFUL');
-        let retryFailureCountQuery = Fallout.count().where('status').eq('RETRY-FAILURE');
-        let errorCountQuery = Fallout.count().where('status').eq('RETRY-FAILURE');
+        let startedCountQuery = Resolution.count().where('status').eq('STARTED');
+        let closedFailureCountQuery = Resolution.count().where('status').eq('CLOSED-FAILURE');
+        let retryStartedCountQuery = Resolution.count().where('status').eq('RETRY-STARTED');
+        let retrySuccessCountQuery = Resolution.count().where('status').eq('RETRY-SUCCESS');
+        let closedSuccessfullCountQuery = Resolution.count().where('status').eq('CLOSED-SUCCESSFUL');
+        let retryFailureCountQuery = Resolution.count().where('status').eq('RETRY-FAILURE');
+        let errorCountQuery = Resolution.count().where('status').eq('ERROR');
 
         if (req.query.source != 'All') {
             startedCountQuery.where('source_system').eq(req.query.source);
