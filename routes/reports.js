@@ -372,17 +372,28 @@ router.get('/falloutaverage', function (req, res, next) {
 });
 
 router.get('/resolution', function (req, res, next) {
+    const length = req.query.length;
+    
     if (req.query.type === 'error') {
 
         let errorCode1 = Resolution.count()
             .where('error_code')
-            .eq('ERR001');
+            .eq('ERR001')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode2 = Resolution.count()
             .where('error_code')
-            .eq('ERR002');
+            .eq('ERR002')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode3 = Resolution.count()
             .where('error_code')
-            .eq('ERR003');
+            .eq('ERR003')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
 
         if (req.query.target != 'All') {
             errorCode1.where('target_system').eq(req.query.target);
@@ -408,13 +419,34 @@ router.get('/resolution', function (req, res, next) {
         });
     } else if (req.query.type === 'status') {
 
-        let startedCountQuery = Resolution.count().where('status').eq('STARTED');
-        let closedFailureCountQuery = Resolution.count().where('status').eq('CLOSED-FAILURE');
-        let retryStartedCountQuery = Resolution.count().where('status').eq('RETRY-STARTED');
-        let retrySuccessCountQuery = Resolution.count().where('status').eq('RETRY-SUCCESS');
-        let closedSuccessfullCountQuery = Resolution.count().where('status').eq('CLOSED-SUCCESSFUL');
-        let retryFailureCountQuery = Resolution.count().where('status').eq('RETRY-FAILURE');
-        let errorCountQuery = Resolution.count().where('status').eq('ERROR');
+        let startedCountQuery = Resolution.count().where('status').eq('STARTED')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let closedFailureCountQuery = Resolution.count().where('status').eq('CLOSED-FAILURE')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let retryStartedCountQuery = Resolution.count().where('status').eq('RETRY-STARTED')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let retrySuccessCountQuery = Resolution.count().where('status').eq('RETRY-SUCCESS')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let closedSuccessfullCountQuery = Resolution.count().where('status').eq('CLOSED-SUCCESSFUL')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let retryFailureCountQuery = Resolution.count().where('status').eq('RETRY-FAILURE')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
+        let errorCountQuery = Resolution.count().where('status').eq('ERROR')
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
 
         if (req.query.target != 'All') {
             startedCountQuery.where('target_system').eq(req.query.target);
