@@ -269,7 +269,7 @@ router.get('/resolutions', function (req, res, next) {
     if (req.query.status) {
         query.where('status').equals(req.query.status);
     }
-
+console.log(query);
     Resolution.paginate(query, {
         page: req.query.page ? Number(req.query.page) : 1,
         limit: req.query.rows ? Number(req.query.rows) : 25,

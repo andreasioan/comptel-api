@@ -5,7 +5,7 @@ var mongoosePaginate = require('mongoose-paginate');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
-    id: {type: String},
+    id: {type: Number},
     source_fallout_id: {type: String},
     action_id: {type: String},
     target_system: {type: String},
