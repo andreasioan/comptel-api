@@ -147,55 +147,102 @@ router.get('/dates', function (req, res, next) {
 });
 
 router.get('/fallout', function (req, res, next) {
+    const length = req.query.length;
+
     if (req.query.code) {
         var error = 'ERROR';
         var num = req.query.code;
 
         let errorCode0 = Fallout.count()
             .where('source_error_code')
-            .eq(error + parseInt(num));
+            .eq(error + parseInt(num))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode1 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 1));
+            .eq(error + (parseInt(num) + 1))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode2 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 2));
+            .eq(error + (parseInt(num) + 2))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode3 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 3));
+            .eq(error + (parseInt(num) + 3))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode4 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 4));
+            .eq(error + (parseInt(num) + 4))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode5 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 5));
+            .eq(error + (parseInt(num) + 5))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode6 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 6));
+            .eq(error + (parseInt(num) + 6))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode7 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 7));
+            .eq(error + (parseInt(num) + 7))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode8 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 8));
+            .eq(error + (parseInt(num) + 8))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode9 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 9));
+            .eq(error + (parseInt(num) + 9))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode10 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 10));
+            .eq(error + (parseInt(num) + 10))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode11 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 11));
+            .eq(error + (parseInt(num) + 11))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode12 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 12));
+            .eq(error + (parseInt(num) + 12))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode13 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 13));
+            .eq(error + (parseInt(num) + 13))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
         let errorCode14 = Fallout.count()
             .where('source_error_code')
-            .eq(error + (parseInt(num) + 14));
+            .eq(error + (parseInt(num) + 14))
+            .where('creation_date')
+            .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+            .lte(moment(new Date()).utc().endOf(length).toISOString());
 
         let promises = {
             errorCode0: errorCode0,
