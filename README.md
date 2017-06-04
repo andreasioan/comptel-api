@@ -6,7 +6,7 @@ The backend API for the Comptel AFOM system
 
 Requires NodeJS to be installed
 
-$ npm start
+$ `npm start`
 
 ## Front-End
 
