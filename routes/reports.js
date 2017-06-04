@@ -389,15 +389,41 @@ router.get('/resolution', function (req, res, next) {
             return res.status(200).json(result);
         });
     }
-    
+
 });
 
-router.get('/sourcedata', function(req, res, next) {
-    return res.status(418).json({
-        title: 'you dun fucked up'
+router.get('/sourcedata', function (req, res, next) {
+
+    let falloutCOMQuery = Fallout.count().where('source_system').eq('COM');
+    let falloutPNIQuery = Fallout.count().where('source_system').eq('PNI');
+    let falloutORDERMANAGERQuery = Fallout.count().where('source_system').eq('ORDERMANAGER');
+
+    let resolutionPNIQuery = Resolution.count().where('target_system').eq('PNI');
+    let resolutionHFCQuery = Resolution.count().where('target_system').eq('HFC-SRI');
+    let resolutionFTTNQuery = Resolution.count().where('target_system').eq('FTTN-SRI');
+
+    let promises = {
+        falloutCOM: falloutCOMQuery,
+        falloutPNI: falloutPNIQuery,
+        falloutORDERMANAGER: falloutORDERMANAGERQuery,
+        resolutionPNI: resolutionPNIQuery,
+        resolutionHFC: resolutionHFCQuery,
+        resolutionFTTN: resolutionFTTNQuery,
+    };
+
+    promises = Object.keys(promises).map((x) => promises[x]);
+    return Promise.all(promises).then((data) => {
+        let result = {
+            fallout_COM: data[0],
+            fallout_PNI: data[1],
+            fallout_ORDERMANAGER: data[2],
+            resolution_PNI: data[3],
+            resolution_HFC: data[4],
+            resolution_FTTN: data[5]
+        };
+
+        return res.status(200).json(result);
     });
 });
-
-
 
 module.exports = router;
