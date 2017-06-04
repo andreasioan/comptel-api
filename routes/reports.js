@@ -339,18 +339,28 @@ router.get('/fallout', function (req, res, next) {
 });
 
 router.get('/falloutaverage', function (req, res, next) {
+    const length = req.query.length;
     let falloutAverage0 = Fallout.count()
         .where('source_error_code')
         .gte('ERROR1001')
-        .lte('ERROR1015');
+        .lte('ERROR1015')
+        .where('creation_date')
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+        .lte(moment(new Date()).utc().endOf(length).toISOString());
     let falloutAverage1 = Fallout.count()
         .where('source_error_code')
         .gte('ERROR1101')
-        .lte('ERROR1115');
+        .lte('ERROR1115')
+        .where('creation_date')
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+        .lte(moment(new Date()).utc().endOf(length).toISOString());
     let falloutAverage2 = Fallout.count()
         .where('source_error_code')
         .gte('ERROR1201')
-        .lte('ERROR1215');
+        .lte('ERROR1215')
+        .where('creation_date')
+        .gte(moment(new Date()).utc().subtract(10, 'weeks').subtract(7, length).startOf(length).toISOString())
+        .lte(moment(new Date()).utc().endOf(length).toISOString());
 
 
     let promises = {
@@ -373,7 +383,7 @@ router.get('/falloutaverage', function (req, res, next) {
 
 router.get('/resolution', function (req, res, next) {
     const length = req.query.length;
-    
+
     if (req.query.type === 'error') {
 
         let errorCode1 = Resolution.count()
