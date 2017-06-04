@@ -355,12 +355,12 @@ router.get('/resolution', function (req, res, next) {
         let errorCountQuery = Resolution.count().where('status').eq('ERROR');
 
         if (req.query.target != 'All') {
-            startedCountQuery.where('source_system').eq(req.query.source);
-            closedFailureCountQuery.where('source_system').eq(req.query.source);
-            retryStartedCountQuery.where('source_system').eq(req.query.source);
-            retrySuccessCountQuery.where('source_system').eq(req.query.source);
-            retryFailureCountQuery.where('source_system').eq(req.query.source);
-            errorCountQuery.where('source_system').eq(req.query.source);
+            startedCountQuery.where('target_system').eq(req.query.target);
+            closedFailureCountQuery.where('target_system').eq(req.query.target);
+            retryStartedCountQuery.where('target_system').eq(req.query.target);
+            retrySuccessCountQuery.where('target_system').eq(req.query.target);
+            retryFailureCountQuery.where('target_system').eq(req.query.target);
+            errorCountQuery.where('target_system').eq(req.query.target);
         }
 
         let promises = {
