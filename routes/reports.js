@@ -354,7 +354,7 @@ router.get('/resolution', function (req, res, next) {
         let retryFailureCountQuery = Resolution.count().where('status').eq('RETRY-FAILURE');
         let errorCountQuery = Resolution.count().where('status').eq('ERROR');
 
-        if (req.query.source != 'All') {
+        if (req.query.target != 'All') {
             startedCountQuery.where('source_system').eq(req.query.source);
             closedFailureCountQuery.where('source_system').eq(req.query.source);
             retryStartedCountQuery.where('source_system').eq(req.query.source);
